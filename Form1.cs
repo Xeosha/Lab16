@@ -2,6 +2,8 @@ using FontAwesome.Sharp;
 using Guna.UI2.WinForms.Helpers;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Runtime.InteropServices;
+using System.Reflection.Metadata;
 
 namespace Lab16
 {
@@ -18,18 +20,119 @@ namespace Lab16
         private readonly Color defaultBackgroundColor = Color.FromArgb(46, 46, 50);
         private readonly Color defaultForegroundColor = Color.FromArgb(200, 200, 200);
 
-        private readonly Dictionary<IconButton, Panel> iconButtons;
         private readonly Dictionary<IconButton, Panel> subMenuPanels;
 
         private Form? activeForm = null;
- 
+        private IconButton activeBtn;
+        private readonly Panel leftBorderPanel;
+        private Panel activeMenu;
 
         #endregion
 
-        private void openForm(Form childForm)
+        #region Init
+
+        public Form1()
         {
-            if (activeForm != null)
-                activeForm.Close();
+            InitializeComponent();
+
+            subMenuPanels = new();
+
+            activeBtn = CloseBtn;
+            leftBorderPanel = greenLabel;
+            activeMenu = AddSubMenuPanel;
+
+            Init();
+
+            // убираем верхнюю панель
+            this.Text = string.Empty;
+            this.ControlBox = false;
+            this.DoubleBuffered = true;
+        }
+
+        private void Init()
+        {
+            InitPanels();
+            VisibleMenuFalse();
+        }
+
+        private void InitPanels()
+        {
+            subMenuPanels.Add(AddSubMenuBtn, AddSubMenuPanel);
+            subMenuPanels.Add(SaveSubMenuBtn, SaveSubmenuPanel);
+        }
+
+        private void VisibleMenuFalse()
+        {
+            foreach (var item in subMenuPanels.Values)
+            {
+                item.Visible = false;
+            }
+        }
+
+        #endregion
+
+        #region Green panel + submenu
+
+        private static void SetButtonColors(IconButton button, Color backColor, Color foreColor)
+        {
+            button.BackColor = backColor;
+            button.ForeColor = foreColor;
+            button.IconColor = foreColor;
+        }
+
+        private void ActiveMenu()
+        {
+            if (subMenuPanels.TryGetValue(activeBtn, out Panel? panel) && !panel.Visible)
+            {
+                activeMenu.Visible = false;
+                activeMenu = panel;
+                activeMenu.Visible = true;
+
+            }
+            else
+            {
+                DisableActiveBtn();
+                activeMenu.Visible = false;
+            }
+        }
+
+        private void DisableActiveBtn()
+        {
+            SetButtonColors(activeBtn, defaultBackgroundColor, defaultForegroundColor);
+            leftBorderPanel.Visible = false;
+        }
+
+        private void ActiveBtn(object senderBtn, EventArgs e)
+        {
+            var curBtn = (IconButton)senderBtn;
+
+            if (curBtn != activeBtn || leftBorderPanel.Visible == false)
+            {
+                DisableActiveBtn();
+
+                activeBtn = curBtn;
+
+                SetButtonColors(activeBtn, activeBackgroundColor, activeForegroundColor);
+
+                activeBtn.Parent?.Controls.Add(leftBorderPanel);
+
+                leftBorderPanel.Visible = true;
+                leftBorderPanel.Location = new Point(0, activeBtn.Location.Y);
+                leftBorderPanel.BringToFront();
+
+            }
+            else
+            {
+                DisableActiveBtn();
+            }
+        }
+
+        #endregion
+
+        #region Open/Close Form
+        private void OpenForm(Form childForm)
+        {
+            CloseActiveForm();
 
             activeForm = childForm;
             childForm.TopLevel = false;
@@ -41,119 +144,7 @@ namespace Lab16
             childForm.Show();
         }
 
-        private void CloseActiveForm()
-        {
-            if(activeForm != null)
-                activeForm.Close();
-        }
-
-        #region Init
-
-        public Form1()
-        {
-            InitializeComponent();
-            iconButtons = new();
-            subMenuPanels = new();
-            Init();
-        }
-
-        private void Init()
-        {
-            InitButtons();
-            InitPanels();
-            CustomDezing();
-        }
-
-        private void InitButtons()
-        {
-            iconButtons.Add(SaveSubMenuBtn, green1);
-            iconButtons.Add(BinBtn, green2);
-            iconButtons.Add(XmlBtn, green3);
-            iconButtons.Add(JsonBtn, green4);
-            iconButtons.Add(AddSubMenuBtn, green5);
-            iconButtons.Add(ManuallyBtn, green6);
-            iconButtons.Add(RandomBtn, green7);
-
-        }
-
-        private void InitPanels()
-        {
-            subMenuPanels.Add(AddSubMenuBtn, AddSubMenuPanel);
-            subMenuPanels.Add(SaveSubMenuBtn, SaveSubmenuPanel);
-        }
-
-
-        private void CustomDezing()
-        {
-            foreach (var item in subMenuPanels.Values)
-            {
-                item.Visible = false;
-            }
-
-            foreach (var key in iconButtons.Keys)
-            {
-                SetActiveBtn(key, false);
-            }
-        }
-
-        #endregion
-
-        #region Green panel + submenu
-        private void ShowGreenPanel(IconButton btn)
-        {
-
-            foreach (var key in iconButtons.Keys)
-            {
-                SetActiveBtn(key, key == btn);
-            }
-        }
-
-        private void SetActiveBtn(IconButton btn, bool flag)
-        {
-            var panel = iconButtons[btn];
-
-            subMenuPanels.TryGetValue(btn, out Panel? panel2);
-
-            if (flag && panel.Visible == false && panel2?.Visible != false)
-            {
-                SetButtonColors(btn, activeBackgroundColor, activeForegroundColor);
-                panel.Visible = true;
-            }
-            else
-            {
-                SetButtonColors(btn, defaultBackgroundColor, defaultForegroundColor);
-                panel.Visible = false;
-            }
-        }
-
-        private void ShowSubMenu(Panel panel)
-        {
-            foreach (var item in subMenuPanels.Values)
-            {
-                if (item == panel && item.Visible == false)
-                    item.Visible = true;
-                else
-                    item.Visible = false;
-            }
-        }
-
-        private void ShowInfoBtn(IconButton btn)
-        {
-            if (subMenuPanels.TryGetValue(btn, out Panel? panel))
-            {
-                ShowSubMenu(panel);
-            }
-
-
-            ShowGreenPanel(btn);
-        }
-
-        private static void SetButtonColors(IconButton button, Color backColor, Color foreColor)
-        {
-            button.BackColor = backColor;
-            button.ForeColor = foreColor;
-            button.IconColor = foreColor;
-        }
+        private void CloseActiveForm() => activeForm?.Close();
         #endregion
 
         #region Кнопки справа сверху и передвижение окна
@@ -198,10 +189,19 @@ namespace Lab16
 
         private void HeaderPanel_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            dragging = true;
-            dragCursorPoint = System.Windows.Forms.Cursor.Position;
-            dragFormPoint = this.Location;
+            //dragging = true;
+            //dragCursorPoint = System.Windows.Forms.Cursor.Position;
+            //dragFormPoint = this.Location;
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
+
+
+        [LibraryImport("user32.dll", EntryPoint = "ReleaseCapture")]
+        private static partial void ReleaseCapture();
+
+        [LibraryImport("user32.dll", EntryPoint = "SendMessage")]
+        private static partial void SendMessage(System.IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
 
         private void HeaderPanel_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
@@ -215,19 +215,28 @@ namespace Lab16
                 this.WindowState = FormWindowState.Maximized;
             }
         }
+
         #endregion
 
         #region Нажатие кнопок меню
         private void AddSubMenuBtn_Click(object sender, EventArgs e)
         {
-            ShowInfoBtn((IconButton)sender);
+            //ShowInfoBtn((IconButton)sender);
+
+            ActiveBtn(sender, e);
+
+            ActiveMenu();
 
             CloseActiveForm();
         }
 
         private void SaveSubMenuBtn_Click(object sender, EventArgs e)
         {
-            ShowInfoBtn((IconButton)sender);
+            //ShowInfoBtn((IconButton)sender);
+
+            ActiveBtn(sender, e);
+
+            ActiveMenu();
 
             CloseActiveForm();
 
@@ -235,31 +244,77 @@ namespace Lab16
 
         private void ManuallyBtn_Click(object sender, EventArgs e)
         {
-            ShowInfoBtn((IconButton)sender);
+            //ShowInfoBtn((IconButton)sender);
 
-            openForm(new AddManuallyForm());
+            ActiveBtn(sender, e);
+
+            OpenForm(new AddManuallyForm());
         }
 
         private void RandomBtn_Click(object sender, EventArgs e)
         {
-            ShowInfoBtn((IconButton)sender);
+            //ShowInfoBtn((IconButton)sender);
+            ActiveBtn(sender, e);
         }
 
 
         private void BinBtn_Click(object sender, EventArgs e)
         {
-            ShowInfoBtn((IconButton)sender);
+            ActiveBtn(sender, e);
         }
 
         private void XmlBtn_Click(object sender, EventArgs e)
         {
-            ShowInfoBtn((IconButton)sender);
+            ActiveBtn(sender, e);
         }
 
         private void JsonBtn_Click(object sender, EventArgs e)
         {
-            ShowInfoBtn((IconButton)sender);
+            ActiveBtn(sender, e);
         }
+
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+        }
+
+        private void ChangeBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+        }
+
+        private void UnloadFileBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+        }
+
+        private void ShowBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+        }
+
+        private void RequestBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            ActiveMenu();
+        }
+
+        private void RqstBtn1_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+        }
+
+        private void RqstBtn2_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+        }
+
+        private void RqstBtn3_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+        }
+
         #endregion
     }
 }

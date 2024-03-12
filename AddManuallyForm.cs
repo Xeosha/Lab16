@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FontAwesome.Sharp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,5 +17,10 @@ namespace Lab16
         {
             InitializeComponent();
         }
+    }
+
+    public class IconButton2 : IconButton
+    {
+        public Label? Label { get; set; } = null;
     }
 }

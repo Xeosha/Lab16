@@ -35,30 +35,41 @@
             WindowRestoreBtn = new FontAwesome.Sharp.IconButton();
             CloseBtn = new FontAwesome.Sharp.IconButton();
             label1 = new Label();
-            panel2 = new Panel();
+            MenuPanel = new Panel();
+            RequestSubMenuPanel = new Panel();
+            panel9 = new Panel();
+            RqstBtn3 = new FontAwesome.Sharp.IconButton();
+            panel10 = new Panel();
+            RqstBtn2 = new FontAwesome.Sharp.IconButton();
+            panel12 = new Panel();
+            RqstBtn1 = new FontAwesome.Sharp.IconButton();
+            panel7 = new Panel();
+            RequestBtn = new FontAwesome.Sharp.IconButton();
+            panel3 = new Panel();
+            ShowBtn = new FontAwesome.Sharp.IconButton();
+            panel5 = new Panel();
+            UnloadFileBtn = new FontAwesome.Sharp.IconButton();
             SaveSubmenuPanel = new Panel();
             panel14 = new Panel();
             JsonBtn = new FontAwesome.Sharp.IconButton();
-            green4 = new Panel();
             panel22 = new Panel();
             XmlBtn = new FontAwesome.Sharp.IconButton();
-            green3 = new Panel();
             panel16 = new Panel();
             BinBtn = new FontAwesome.Sharp.IconButton();
-            green2 = new Panel();
             SavePanel = new Panel();
             SaveSubMenuBtn = new FontAwesome.Sharp.IconButton();
-            green1 = new Panel();
+            panel2 = new Panel();
+            ChangeBtn = new FontAwesome.Sharp.IconButton();
+            panel1 = new Panel();
+            DeleteBtn = new FontAwesome.Sharp.IconButton();
             AddSubMenuPanel = new Panel();
             panel11 = new Panel();
             RandomBtn = new FontAwesome.Sharp.IconButton();
-            green7 = new Panel();
             panel6 = new Panel();
             ManuallyBtn = new FontAwesome.Sharp.IconButton();
-            green6 = new Panel();
             AddPanel = new Panel();
             AddSubMenuBtn = new FontAwesome.Sharp.IconButton();
-            green5 = new Panel();
+            greenLabel = new Panel();
             PanelLogo = new Panel();
             label2 = new Label();
             pictureBox2 = new PictureBox();
@@ -67,12 +78,21 @@
             pictureBox3 = new PictureBox();
             HeaderPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel2.SuspendLayout();
+            MenuPanel.SuspendLayout();
+            RequestSubMenuPanel.SuspendLayout();
+            panel9.SuspendLayout();
+            panel10.SuspendLayout();
+            panel12.SuspendLayout();
+            panel7.SuspendLayout();
+            panel3.SuspendLayout();
+            panel5.SuspendLayout();
             SaveSubmenuPanel.SuspendLayout();
             panel14.SuspendLayout();
             panel22.SuspendLayout();
             panel16.SuspendLayout();
             SavePanel.SuspendLayout();
+            panel2.SuspendLayout();
+            panel1.SuspendLayout();
             AddSubMenuPanel.SuspendLayout();
             panel11.SuspendLayout();
             panel6.SuspendLayout();
@@ -177,20 +197,211 @@
             label1.TabIndex = 2;
             label1.Text = "ЛАБОРАТОРНАЯ 16 | РАБОТА С ФАЙЛАМИ";
             // 
-            // panel2
+            // MenuPanel
             // 
-            panel2.AutoScroll = true;
-            panel2.BackColor = Color.FromArgb(46, 46, 50);
-            panel2.Controls.Add(SaveSubmenuPanel);
-            panel2.Controls.Add(SavePanel);
-            panel2.Controls.Add(AddSubMenuPanel);
-            panel2.Controls.Add(AddPanel);
-            panel2.Controls.Add(PanelLogo);
-            panel2.Dock = DockStyle.Left;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(287, 525);
-            panel2.TabIndex = 4;
+            MenuPanel.AutoScroll = true;
+            MenuPanel.BackColor = Color.FromArgb(46, 46, 50);
+            MenuPanel.Controls.Add(RequestSubMenuPanel);
+            MenuPanel.Controls.Add(panel7);
+            MenuPanel.Controls.Add(panel3);
+            MenuPanel.Controls.Add(panel5);
+            MenuPanel.Controls.Add(SaveSubmenuPanel);
+            MenuPanel.Controls.Add(SavePanel);
+            MenuPanel.Controls.Add(panel2);
+            MenuPanel.Controls.Add(panel1);
+            MenuPanel.Controls.Add(AddSubMenuPanel);
+            MenuPanel.Controls.Add(AddPanel);
+            MenuPanel.Controls.Add(PanelLogo);
+            MenuPanel.Dock = DockStyle.Left;
+            MenuPanel.Location = new Point(0, 0);
+            MenuPanel.Name = "MenuPanel";
+            MenuPanel.Size = new Size(287, 525);
+            MenuPanel.TabIndex = 4;
+            // 
+            // RequestSubMenuPanel
+            // 
+            RequestSubMenuPanel.Controls.Add(panel9);
+            RequestSubMenuPanel.Controls.Add(panel10);
+            RequestSubMenuPanel.Controls.Add(panel12);
+            RequestSubMenuPanel.Dock = DockStyle.Top;
+            RequestSubMenuPanel.Location = new Point(0, 641);
+            RequestSubMenuPanel.Name = "RequestSubMenuPanel";
+            RequestSubMenuPanel.Size = new Size(270, 129);
+            RequestSubMenuPanel.TabIndex = 6;
+            // 
+            // panel9
+            // 
+            panel9.Controls.Add(RqstBtn3);
+            panel9.Dock = DockStyle.Top;
+            panel9.Location = new Point(0, 86);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(270, 43);
+            panel9.TabIndex = 4;
+            // 
+            // RqstBtn3
+            // 
+            RqstBtn3.Dock = DockStyle.Fill;
+            RqstBtn3.FlatAppearance.BorderSize = 0;
+            RqstBtn3.FlatStyle = FlatStyle.Flat;
+            RqstBtn3.ForeColor = SystemColors.ScrollBar;
+            RqstBtn3.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+            RqstBtn3.IconColor = SystemColors.ScrollBar;
+            RqstBtn3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            RqstBtn3.ImageAlign = ContentAlignment.MiddleLeft;
+            RqstBtn3.Location = new Point(0, 0);
+            RqstBtn3.Name = "RqstBtn3";
+            RqstBtn3.Padding = new Padding(20, 0, 0, 0);
+            RqstBtn3.Size = new Size(270, 43);
+            RqstBtn3.TabIndex = 1;
+            RqstBtn3.Text = "                           Запрос3";
+            RqstBtn3.TextAlign = ContentAlignment.MiddleLeft;
+            RqstBtn3.UseVisualStyleBackColor = true;
+            RqstBtn3.Click += RqstBtn3_Click;
+            // 
+            // panel10
+            // 
+            panel10.Controls.Add(RqstBtn2);
+            panel10.Dock = DockStyle.Top;
+            panel10.Location = new Point(0, 43);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(270, 43);
+            panel10.TabIndex = 5;
+            // 
+            // RqstBtn2
+            // 
+            RqstBtn2.Dock = DockStyle.Fill;
+            RqstBtn2.FlatAppearance.BorderSize = 0;
+            RqstBtn2.FlatStyle = FlatStyle.Flat;
+            RqstBtn2.ForeColor = SystemColors.ScrollBar;
+            RqstBtn2.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+            RqstBtn2.IconColor = SystemColors.ScrollBar;
+            RqstBtn2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            RqstBtn2.ImageAlign = ContentAlignment.MiddleLeft;
+            RqstBtn2.Location = new Point(0, 0);
+            RqstBtn2.Name = "RqstBtn2";
+            RqstBtn2.Padding = new Padding(20, 0, 0, 0);
+            RqstBtn2.Size = new Size(270, 43);
+            RqstBtn2.TabIndex = 1;
+            RqstBtn2.Text = "                           Запрос2";
+            RqstBtn2.TextAlign = ContentAlignment.MiddleLeft;
+            RqstBtn2.UseVisualStyleBackColor = true;
+            RqstBtn2.Click += RqstBtn2_Click;
+            // 
+            // panel12
+            // 
+            panel12.Controls.Add(RqstBtn1);
+            panel12.Dock = DockStyle.Top;
+            panel12.Location = new Point(0, 0);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(270, 43);
+            panel12.TabIndex = 2;
+            // 
+            // RqstBtn1
+            // 
+            RqstBtn1.Dock = DockStyle.Fill;
+            RqstBtn1.FlatAppearance.BorderSize = 0;
+            RqstBtn1.FlatStyle = FlatStyle.Flat;
+            RqstBtn1.ForeColor = SystemColors.ScrollBar;
+            RqstBtn1.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+            RqstBtn1.IconColor = SystemColors.ScrollBar;
+            RqstBtn1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            RqstBtn1.ImageAlign = ContentAlignment.MiddleLeft;
+            RqstBtn1.Location = new Point(0, 0);
+            RqstBtn1.Name = "RqstBtn1";
+            RqstBtn1.Padding = new Padding(20, 0, 0, 0);
+            RqstBtn1.Size = new Size(270, 43);
+            RqstBtn1.TabIndex = 1;
+            RqstBtn1.Text = "                           Запрос1";
+            RqstBtn1.TextAlign = ContentAlignment.MiddleLeft;
+            RqstBtn1.UseVisualStyleBackColor = true;
+            RqstBtn1.Click += RqstBtn1_Click;
+            // 
+            // panel7
+            // 
+            panel7.Controls.Add(RequestBtn);
+            panel7.Dock = DockStyle.Top;
+            panel7.Location = new Point(0, 598);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(270, 43);
+            panel7.TabIndex = 2;
+            // 
+            // RequestBtn
+            // 
+            RequestBtn.Dock = DockStyle.Fill;
+            RequestBtn.FlatAppearance.BorderSize = 0;
+            RequestBtn.FlatStyle = FlatStyle.Flat;
+            RequestBtn.ForeColor = SystemColors.ScrollBar;
+            RequestBtn.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+            RequestBtn.IconColor = SystemColors.ScrollBar;
+            RequestBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            RequestBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            RequestBtn.Location = new Point(0, 0);
+            RequestBtn.Name = "RequestBtn";
+            RequestBtn.Padding = new Padding(5, 0, 0, 0);
+            RequestBtn.Size = new Size(270, 43);
+            RequestBtn.TabIndex = 1;
+            RequestBtn.Text = "                Запросы";
+            RequestBtn.TextAlign = ContentAlignment.MiddleLeft;
+            RequestBtn.UseVisualStyleBackColor = true;
+            RequestBtn.Click += RequestBtn_Click;
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(ShowBtn);
+            panel3.Dock = DockStyle.Top;
+            panel3.Location = new Point(0, 555);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(270, 43);
+            panel3.TabIndex = 7;
+            // 
+            // ShowBtn
+            // 
+            ShowBtn.Dock = DockStyle.Fill;
+            ShowBtn.FlatAppearance.BorderSize = 0;
+            ShowBtn.FlatStyle = FlatStyle.Flat;
+            ShowBtn.ForeColor = SystemColors.ScrollBar;
+            ShowBtn.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+            ShowBtn.IconColor = SystemColors.ScrollBar;
+            ShowBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ShowBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            ShowBtn.Location = new Point(0, 0);
+            ShowBtn.Name = "ShowBtn";
+            ShowBtn.Padding = new Padding(5, 0, 0, 0);
+            ShowBtn.Size = new Size(270, 43);
+            ShowBtn.TabIndex = 1;
+            ShowBtn.Text = "                Печать";
+            ShowBtn.TextAlign = ContentAlignment.MiddleLeft;
+            ShowBtn.UseVisualStyleBackColor = true;
+            ShowBtn.Click += ShowBtn_Click;
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(UnloadFileBtn);
+            panel5.Dock = DockStyle.Top;
+            panel5.Location = new Point(0, 512);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(270, 43);
+            panel5.TabIndex = 8;
+            // 
+            // UnloadFileBtn
+            // 
+            UnloadFileBtn.Dock = DockStyle.Fill;
+            UnloadFileBtn.FlatAppearance.BorderSize = 0;
+            UnloadFileBtn.FlatStyle = FlatStyle.Flat;
+            UnloadFileBtn.ForeColor = SystemColors.ScrollBar;
+            UnloadFileBtn.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+            UnloadFileBtn.IconColor = SystemColors.ScrollBar;
+            UnloadFileBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            UnloadFileBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            UnloadFileBtn.Location = new Point(0, 0);
+            UnloadFileBtn.Name = "UnloadFileBtn";
+            UnloadFileBtn.Padding = new Padding(5, 0, 0, 0);
+            UnloadFileBtn.Size = new Size(270, 43);
+            UnloadFileBtn.TabIndex = 1;
+            UnloadFileBtn.Text = "                Загрузить из файла";
+            UnloadFileBtn.TextAlign = ContentAlignment.MiddleLeft;
+            UnloadFileBtn.UseVisualStyleBackColor = true;
+            UnloadFileBtn.Click += UnloadFileBtn_Click;
             // 
             // SaveSubmenuPanel
             // 
@@ -198,19 +409,18 @@
             SaveSubmenuPanel.Controls.Add(panel22);
             SaveSubmenuPanel.Controls.Add(panel16);
             SaveSubmenuPanel.Dock = DockStyle.Top;
-            SaveSubmenuPanel.Location = new Point(0, 297);
+            SaveSubmenuPanel.Location = new Point(0, 383);
             SaveSubmenuPanel.Name = "SaveSubmenuPanel";
-            SaveSubmenuPanel.Size = new Size(287, 129);
+            SaveSubmenuPanel.Size = new Size(270, 129);
             SaveSubmenuPanel.TabIndex = 5;
             // 
             // panel14
             // 
             panel14.Controls.Add(JsonBtn);
-            panel14.Controls.Add(green4);
             panel14.Dock = DockStyle.Top;
             panel14.Location = new Point(0, 86);
             panel14.Name = "panel14";
-            panel14.Size = new Size(287, 43);
+            panel14.Size = new Size(270, 43);
             panel14.TabIndex = 4;
             // 
             // JsonBtn
@@ -223,33 +433,23 @@
             JsonBtn.IconColor = SystemColors.ScrollBar;
             JsonBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             JsonBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            JsonBtn.Location = new Point(10, 0);
+            JsonBtn.Location = new Point(0, 0);
             JsonBtn.Name = "JsonBtn";
             JsonBtn.Padding = new Padding(20, 0, 0, 0);
-            JsonBtn.Size = new Size(277, 43);
+            JsonBtn.Size = new Size(270, 43);
             JsonBtn.TabIndex = 1;
             JsonBtn.Text = "                           JSON";
             JsonBtn.TextAlign = ContentAlignment.MiddleLeft;
             JsonBtn.UseVisualStyleBackColor = true;
             JsonBtn.Click += JsonBtn_Click;
             // 
-            // green4
-            // 
-            green4.BackColor = Color.FromArgb(134, 200, 103);
-            green4.Dock = DockStyle.Left;
-            green4.Location = new Point(0, 0);
-            green4.Name = "green4";
-            green4.Size = new Size(10, 43);
-            green4.TabIndex = 1;
-            // 
             // panel22
             // 
             panel22.Controls.Add(XmlBtn);
-            panel22.Controls.Add(green3);
             panel22.Dock = DockStyle.Top;
             panel22.Location = new Point(0, 43);
             panel22.Name = "panel22";
-            panel22.Size = new Size(287, 43);
+            panel22.Size = new Size(270, 43);
             panel22.TabIndex = 5;
             // 
             // XmlBtn
@@ -262,33 +462,23 @@
             XmlBtn.IconColor = SystemColors.ScrollBar;
             XmlBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             XmlBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            XmlBtn.Location = new Point(10, 0);
+            XmlBtn.Location = new Point(0, 0);
             XmlBtn.Name = "XmlBtn";
             XmlBtn.Padding = new Padding(20, 0, 0, 0);
-            XmlBtn.Size = new Size(277, 43);
+            XmlBtn.Size = new Size(270, 43);
             XmlBtn.TabIndex = 1;
             XmlBtn.Text = "                           XML";
             XmlBtn.TextAlign = ContentAlignment.MiddleLeft;
             XmlBtn.UseVisualStyleBackColor = true;
             XmlBtn.Click += XmlBtn_Click;
             // 
-            // green3
-            // 
-            green3.BackColor = Color.FromArgb(134, 200, 103);
-            green3.Dock = DockStyle.Left;
-            green3.Location = new Point(0, 0);
-            green3.Name = "green3";
-            green3.Size = new Size(10, 43);
-            green3.TabIndex = 1;
-            // 
             // panel16
             // 
             panel16.Controls.Add(BinBtn);
-            panel16.Controls.Add(green2);
             panel16.Dock = DockStyle.Top;
             panel16.Location = new Point(0, 0);
             panel16.Name = "panel16";
-            panel16.Size = new Size(287, 43);
+            panel16.Size = new Size(270, 43);
             panel16.TabIndex = 2;
             // 
             // BinBtn
@@ -301,33 +491,23 @@
             BinBtn.IconColor = SystemColors.ScrollBar;
             BinBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BinBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            BinBtn.Location = new Point(10, 0);
+            BinBtn.Location = new Point(0, 0);
             BinBtn.Name = "BinBtn";
             BinBtn.Padding = new Padding(20, 0, 0, 0);
-            BinBtn.Size = new Size(277, 43);
+            BinBtn.Size = new Size(270, 43);
             BinBtn.TabIndex = 1;
             BinBtn.Text = "                           BIN";
             BinBtn.TextAlign = ContentAlignment.MiddleLeft;
             BinBtn.UseVisualStyleBackColor = true;
             BinBtn.Click += BinBtn_Click;
             // 
-            // green2
-            // 
-            green2.BackColor = Color.FromArgb(134, 200, 103);
-            green2.Dock = DockStyle.Left;
-            green2.Location = new Point(0, 0);
-            green2.Name = "green2";
-            green2.Size = new Size(10, 43);
-            green2.TabIndex = 1;
-            // 
             // SavePanel
             // 
             SavePanel.Controls.Add(SaveSubMenuBtn);
-            SavePanel.Controls.Add(green1);
             SavePanel.Dock = DockStyle.Top;
-            SavePanel.Location = new Point(0, 254);
+            SavePanel.Location = new Point(0, 340);
             SavePanel.Name = "SavePanel";
-            SavePanel.Size = new Size(287, 43);
+            SavePanel.Size = new Size(270, 43);
             SavePanel.TabIndex = 0;
             // 
             // SaveSubMenuBtn
@@ -340,23 +520,73 @@
             SaveSubMenuBtn.IconColor = SystemColors.ScrollBar;
             SaveSubMenuBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             SaveSubMenuBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            SaveSubMenuBtn.Location = new Point(10, 0);
+            SaveSubMenuBtn.Location = new Point(0, 0);
             SaveSubMenuBtn.Name = "SaveSubMenuBtn";
-            SaveSubMenuBtn.Size = new Size(277, 43);
+            SaveSubMenuBtn.Padding = new Padding(5, 0, 0, 0);
+            SaveSubMenuBtn.Size = new Size(270, 43);
             SaveSubMenuBtn.TabIndex = 1;
             SaveSubMenuBtn.Text = "                Сохранить в файл";
             SaveSubMenuBtn.TextAlign = ContentAlignment.MiddleLeft;
             SaveSubMenuBtn.UseVisualStyleBackColor = true;
             SaveSubMenuBtn.Click += SaveSubMenuBtn_Click;
             // 
-            // green1
+            // panel2
             // 
-            green1.BackColor = Color.FromArgb(134, 200, 103);
-            green1.Dock = DockStyle.Left;
-            green1.Location = new Point(0, 0);
-            green1.Name = "green1";
-            green1.Size = new Size(10, 43);
-            green1.TabIndex = 1;
+            panel2.Controls.Add(ChangeBtn);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 297);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(270, 43);
+            panel2.TabIndex = 7;
+            // 
+            // ChangeBtn
+            // 
+            ChangeBtn.Dock = DockStyle.Fill;
+            ChangeBtn.FlatAppearance.BorderSize = 0;
+            ChangeBtn.FlatStyle = FlatStyle.Flat;
+            ChangeBtn.ForeColor = SystemColors.ScrollBar;
+            ChangeBtn.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+            ChangeBtn.IconColor = SystemColors.ScrollBar;
+            ChangeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ChangeBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            ChangeBtn.Location = new Point(0, 0);
+            ChangeBtn.Name = "ChangeBtn";
+            ChangeBtn.Padding = new Padding(5, 0, 0, 0);
+            ChangeBtn.Size = new Size(270, 43);
+            ChangeBtn.TabIndex = 1;
+            ChangeBtn.Text = "                Изменить";
+            ChangeBtn.TextAlign = ContentAlignment.MiddleLeft;
+            ChangeBtn.UseVisualStyleBackColor = true;
+            ChangeBtn.Click += ChangeBtn_Click;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(DeleteBtn);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 254);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(270, 43);
+            panel1.TabIndex = 6;
+            // 
+            // DeleteBtn
+            // 
+            DeleteBtn.Dock = DockStyle.Fill;
+            DeleteBtn.FlatAppearance.BorderSize = 0;
+            DeleteBtn.FlatStyle = FlatStyle.Flat;
+            DeleteBtn.ForeColor = SystemColors.ScrollBar;
+            DeleteBtn.IconChar = FontAwesome.Sharp.IconChar.LockOpen;
+            DeleteBtn.IconColor = SystemColors.ScrollBar;
+            DeleteBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            DeleteBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            DeleteBtn.Location = new Point(0, 0);
+            DeleteBtn.Name = "DeleteBtn";
+            DeleteBtn.Padding = new Padding(5, 0, 0, 0);
+            DeleteBtn.Size = new Size(270, 43);
+            DeleteBtn.TabIndex = 1;
+            DeleteBtn.Text = "                Удаление";
+            DeleteBtn.TextAlign = ContentAlignment.MiddleLeft;
+            DeleteBtn.UseVisualStyleBackColor = true;
+            DeleteBtn.Click += DeleteBtn_Click;
             // 
             // AddSubMenuPanel
             // 
@@ -365,17 +595,16 @@
             AddSubMenuPanel.Dock = DockStyle.Top;
             AddSubMenuPanel.Location = new Point(0, 168);
             AddSubMenuPanel.Name = "AddSubMenuPanel";
-            AddSubMenuPanel.Size = new Size(287, 86);
+            AddSubMenuPanel.Size = new Size(270, 86);
             AddSubMenuPanel.TabIndex = 3;
             // 
             // panel11
             // 
             panel11.Controls.Add(RandomBtn);
-            panel11.Controls.Add(green7);
             panel11.Dock = DockStyle.Top;
             panel11.Location = new Point(0, 43);
             panel11.Name = "panel11";
-            panel11.Size = new Size(287, 43);
+            panel11.Size = new Size(270, 43);
             panel11.TabIndex = 4;
             // 
             // RandomBtn
@@ -388,33 +617,23 @@
             RandomBtn.IconColor = SystemColors.ScrollBar;
             RandomBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             RandomBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            RandomBtn.Location = new Point(10, 0);
+            RandomBtn.Location = new Point(0, 0);
             RandomBtn.Name = "RandomBtn";
             RandomBtn.Padding = new Padding(20, 0, 0, 0);
-            RandomBtn.Size = new Size(277, 43);
+            RandomBtn.Size = new Size(270, 43);
             RandomBtn.TabIndex = 1;
             RandomBtn.Text = "                           ДСЧ";
             RandomBtn.TextAlign = ContentAlignment.MiddleLeft;
             RandomBtn.UseVisualStyleBackColor = true;
             RandomBtn.Click += RandomBtn_Click;
             // 
-            // green7
-            // 
-            green7.BackColor = Color.FromArgb(134, 200, 103);
-            green7.Dock = DockStyle.Left;
-            green7.Location = new Point(0, 0);
-            green7.Name = "green7";
-            green7.Size = new Size(10, 43);
-            green7.TabIndex = 1;
-            // 
             // panel6
             // 
             panel6.Controls.Add(ManuallyBtn);
-            panel6.Controls.Add(green6);
             panel6.Dock = DockStyle.Top;
             panel6.Location = new Point(0, 0);
             panel6.Name = "panel6";
-            panel6.Size = new Size(287, 43);
+            panel6.Size = new Size(270, 43);
             panel6.TabIndex = 2;
             // 
             // ManuallyBtn
@@ -427,33 +646,24 @@
             ManuallyBtn.IconColor = SystemColors.ScrollBar;
             ManuallyBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ManuallyBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            ManuallyBtn.Location = new Point(10, 0);
+            ManuallyBtn.Location = new Point(0, 0);
             ManuallyBtn.Name = "ManuallyBtn";
             ManuallyBtn.Padding = new Padding(20, 0, 0, 0);
-            ManuallyBtn.Size = new Size(277, 43);
+            ManuallyBtn.Size = new Size(270, 43);
             ManuallyBtn.TabIndex = 1;
             ManuallyBtn.Text = "                           Вручную";
             ManuallyBtn.TextAlign = ContentAlignment.MiddleLeft;
             ManuallyBtn.UseVisualStyleBackColor = true;
             ManuallyBtn.Click += ManuallyBtn_Click;
             // 
-            // green6
-            // 
-            green6.BackColor = Color.FromArgb(134, 200, 103);
-            green6.Dock = DockStyle.Left;
-            green6.Location = new Point(0, 0);
-            green6.Name = "green6";
-            green6.Size = new Size(10, 43);
-            green6.TabIndex = 1;
-            // 
             // AddPanel
             // 
             AddPanel.Controls.Add(AddSubMenuBtn);
-            AddPanel.Controls.Add(green5);
+            AddPanel.Controls.Add(greenLabel);
             AddPanel.Dock = DockStyle.Top;
             AddPanel.Location = new Point(0, 125);
             AddPanel.Name = "AddPanel";
-            AddPanel.Size = new Size(287, 43);
+            AddPanel.Size = new Size(270, 43);
             AddPanel.TabIndex = 1;
             // 
             // AddSubMenuBtn
@@ -468,21 +678,23 @@
             AddSubMenuBtn.ImageAlign = ContentAlignment.MiddleLeft;
             AddSubMenuBtn.Location = new Point(10, 0);
             AddSubMenuBtn.Name = "AddSubMenuBtn";
-            AddSubMenuBtn.Size = new Size(277, 43);
+            AddSubMenuBtn.Padding = new Padding(5, 0, 0, 0);
+            AddSubMenuBtn.Size = new Size(260, 43);
             AddSubMenuBtn.TabIndex = 1;
             AddSubMenuBtn.Text = "                Добавить элемент";
             AddSubMenuBtn.TextAlign = ContentAlignment.MiddleLeft;
             AddSubMenuBtn.UseVisualStyleBackColor = true;
             AddSubMenuBtn.Click += AddSubMenuBtn_Click;
             // 
-            // green5
+            // greenLabel
             // 
-            green5.BackColor = Color.FromArgb(134, 200, 103);
-            green5.Dock = DockStyle.Left;
-            green5.Location = new Point(0, 0);
-            green5.Name = "green5";
-            green5.Size = new Size(10, 43);
-            green5.TabIndex = 1;
+            greenLabel.BackColor = Color.FromArgb(134, 200, 103);
+            greenLabel.Dock = DockStyle.Left;
+            greenLabel.Location = new Point(0, 0);
+            greenLabel.Name = "greenLabel";
+            greenLabel.Size = new Size(10, 43);
+            greenLabel.TabIndex = 1;
+            greenLabel.Visible = false;
             // 
             // PanelLogo
             // 
@@ -492,7 +704,7 @@
             PanelLogo.Dock = DockStyle.Top;
             PanelLogo.Location = new Point(0, 0);
             PanelLogo.Name = "PanelLogo";
-            PanelLogo.Size = new Size(287, 125);
+            PanelLogo.Size = new Size(270, 125);
             PanelLogo.TabIndex = 5;
             // 
             // label2
@@ -522,7 +734,7 @@
             PanelWindow.BackColor = Color.FromArgb(52, 52, 52);
             PanelWindow.Controls.Add(label3);
             PanelWindow.Controls.Add(pictureBox3);
-            PanelWindow.Controls.Add(panel2);
+            PanelWindow.Controls.Add(MenuPanel);
             PanelWindow.Dock = DockStyle.Fill;
             PanelWindow.Location = new Point(0, 40);
             PanelWindow.Name = "PanelWindow";
@@ -531,6 +743,7 @@
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
             label3.ForeColor = SystemColors.ScrollBar;
@@ -542,6 +755,7 @@
             // 
             // pictureBox3
             // 
+            pictureBox3.Anchor = AnchorStyles.None;
             pictureBox3.BackgroundImageLayout = ImageLayout.None;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
             pictureBox3.Location = new Point(512, 108);
@@ -558,19 +772,27 @@
             ClientSize = new Size(1090, 565);
             Controls.Add(PanelWindow);
             Controls.Add(HeaderPanel);
-            FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Form1";
             HeaderPanel.ResumeLayout(false);
             HeaderPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel2.ResumeLayout(false);
+            MenuPanel.ResumeLayout(false);
+            RequestSubMenuPanel.ResumeLayout(false);
+            panel9.ResumeLayout(false);
+            panel10.ResumeLayout(false);
+            panel12.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel5.ResumeLayout(false);
             SaveSubmenuPanel.ResumeLayout(false);
             panel14.ResumeLayout(false);
             panel22.ResumeLayout(false);
             panel16.ResumeLayout(false);
             SavePanel.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             AddSubMenuPanel.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel6.ResumeLayout(false);
@@ -588,8 +810,7 @@
 
         private Panel HeaderPanel;
         private Label label1;
-        private Panel panel2;
-        private Panel panel4;
+        private Panel MenuPanel;
         private FontAwesome.Sharp.IconButton WindowMinimazeBtn;
         private FontAwesome.Sharp.IconButton WindowRestoreBtn;
         private FontAwesome.Sharp.IconButton CloseBtn;
@@ -598,30 +819,41 @@
         private Panel AddSubMenuPanel;
         private Panel panel11;
         private FontAwesome.Sharp.IconButton RandomBtn;
-        private Panel green7;
         private Panel panel6;
         private FontAwesome.Sharp.IconButton ManuallyBtn;
-        private Panel green6;
         private Panel SaveSubmenuPanel;
         private Panel panel14;
         private FontAwesome.Sharp.IconButton JsonBtn;
-        private Panel green4;
         private Panel panel22;
         private FontAwesome.Sharp.IconButton XmlBtn;
-        private Panel green3;
         private Panel panel16;
         private FontAwesome.Sharp.IconButton BinBtn;
-        private Panel green2;
         private Panel SavePanel;
-        private FontAwesome.Sharp.IconButton SaveSubMenuBtn;
-        private Panel green1;
         private Label label2;
         private PictureBox pictureBox2;
         private PictureBox pictureBox1;
         private Panel AddPanel;
         private FontAwesome.Sharp.IconButton AddSubMenuBtn;
-        private Panel green5;
+        private Panel greenLabel;
         private Label label3;
         private PictureBox pictureBox3;
+        private FontAwesome.Sharp.IconButton SaveSubMenuBtn;
+        private Panel panel1;
+        private FontAwesome.Sharp.IconButton DeleteBtn;
+        private Panel RequestSubMenuPanel;
+        private Panel panel9;
+        private FontAwesome.Sharp.IconButton RqstBtn3;
+        private Panel panel10;
+        private FontAwesome.Sharp.IconButton RqstBtn2;
+        private Panel panel12;
+        private FontAwesome.Sharp.IconButton RqstBtn1;
+        private Panel panel7;
+        private FontAwesome.Sharp.IconButton RequestBtn;
+        private Panel panel3;
+        private FontAwesome.Sharp.IconButton ShowBtn;
+        private Panel panel5;
+        private FontAwesome.Sharp.IconButton UnloadFileBtn;
+        private Panel panel2;
+        private FontAwesome.Sharp.IconButton ChangeBtn;
     }
 }
