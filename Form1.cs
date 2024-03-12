@@ -7,6 +7,8 @@ namespace Lab16
 {
     public partial class Form1 : Form
     {
+        #region Local variables/constants
+
         bool dragging = false;
         Point dragCursorPoint, dragFormPoint;
 
@@ -19,7 +21,33 @@ namespace Lab16
         private readonly Dictionary<IconButton, Panel> iconButtons;
         private readonly Dictionary<IconButton, Panel> subMenuPanels;
 
+        private Form? activeForm = null;
+ 
 
+        #endregion
+
+        private void openForm(Form childForm)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            PanelWindow.Controls.Add(childForm);
+            PanelWindow.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+        }
+
+        private void CloseActiveForm()
+        {
+            if(activeForm != null)
+                activeForm.Close();
+        }
+
+        #region Init
 
         public Form1()
         {
@@ -68,6 +96,9 @@ namespace Lab16
             }
         }
 
+        #endregion
+
+        #region Green panel + submenu
         private void ShowGreenPanel(IconButton btn)
         {
 
@@ -123,7 +154,9 @@ namespace Lab16
             button.ForeColor = foreColor;
             button.IconColor = foreColor;
         }
+        #endregion
 
+        #region Кнопки справа сверху и передвижение окна
         private void CloseBtn_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -147,27 +180,6 @@ namespace Lab16
         private void WindowMinimazeBtn_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void AddSubMenuBtn_Click(object sender, EventArgs e)
-        {
-            ShowInfoBtn((IconButton)sender);
-        }
-
-        private void SaveSubMenuBtn_Click(object sender, EventArgs e)
-        {
-            ShowInfoBtn((IconButton)sender);
-
-        }
-
-        private void ManuallyBtn_Click(object sender, EventArgs e)
-        {
-            ShowInfoBtn((IconButton)sender);
-        }
-
-        private void RandomBtn_Click(object sender, EventArgs e)
-        {
-            ShowInfoBtn((IconButton)sender);
         }
 
         private void HeaderPanel_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -203,6 +215,36 @@ namespace Lab16
                 this.WindowState = FormWindowState.Maximized;
             }
         }
+        #endregion
+
+        #region Нажатие кнопок меню
+        private void AddSubMenuBtn_Click(object sender, EventArgs e)
+        {
+            ShowInfoBtn((IconButton)sender);
+
+            CloseActiveForm();
+        }
+
+        private void SaveSubMenuBtn_Click(object sender, EventArgs e)
+        {
+            ShowInfoBtn((IconButton)sender);
+
+            CloseActiveForm();
+
+        }
+
+        private void ManuallyBtn_Click(object sender, EventArgs e)
+        {
+            ShowInfoBtn((IconButton)sender);
+
+            openForm(new AddManuallyForm());
+        }
+
+        private void RandomBtn_Click(object sender, EventArgs e)
+        {
+            ShowInfoBtn((IconButton)sender);
+        }
+
 
         private void BinBtn_Click(object sender, EventArgs e)
         {
@@ -218,5 +260,6 @@ namespace Lab16
         {
             ShowInfoBtn((IconButton)sender);
         }
+        #endregion
     }
 }
