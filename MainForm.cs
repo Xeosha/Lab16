@@ -4,15 +4,26 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Runtime.InteropServices;
 using System.Reflection.Metadata;
+using Lab_10lib;
+using Lab16.CustomControl;
+using EventBinaryTree;
+using Guna.UI2.WinForms;
+using Microsoft.Win32;
+using Lab16.Serialization;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
+using BinarySearchTree;
+using Lab16.Methods;
 
 namespace Lab16
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         #region Local variables/constants
 
         bool dragging = false;
         Point dragCursorPoint, dragFormPoint;
+
 
         private readonly Color activeBackgroundColor = Color.FromArgb(52, 52, 52);
         private readonly Color activeForegroundColor = Color.FromArgb(134, 200, 103);
@@ -20,58 +31,57 @@ namespace Lab16
         private readonly Color defaultBackgroundColor = Color.FromArgb(46, 46, 50);
         private readonly Color defaultForegroundColor = Color.FromArgb(200, 200, 200);
 
-        private readonly Dictionary<IconButton, Panel> subMenuPanels;
-
         private Form? activeForm = null;
         private IconButton activeBtn;
         private readonly Panel leftBorderPanel;
         private Panel activeMenu;
 
+        public BinaryTreeEvent<Goods> binaryTree;
+
+
         #endregion
 
         #region Init
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
-            subMenuPanels = new();
+            binaryTree = new();
+            binaryTree.CollectionChange += CollectionChange;
 
-            activeBtn = CloseBtn;
+            binaryTree.Clear();
+
+            activeBtn = AddSubMenuBtn;
             leftBorderPanel = greenLabel;
             activeMenu = AddSubMenuPanel;
 
             Init();
+        }
 
+        private void Init()
+        {
             // убираем верхнюю панель
             this.Text = string.Empty;
             this.ControlBox = false;
             this.DoubleBuffered = true;
         }
 
-        private void Init()
-        {
-            InitPanels();
-            VisibleMenuFalse();
-        }
-
-        private void InitPanels()
-        {
-            subMenuPanels.Add(AddSubMenuBtn, AddSubMenuPanel);
-            subMenuPanels.Add(SaveSubMenuBtn, SaveSubmenuPanel);
-        }
-
-        private void VisibleMenuFalse()
-        {
-            foreach (var item in subMenuPanels.Values)
-            {
-                item.Visible = false;
-            }
-        }
-
         #endregion
 
-        #region Green panel + submenu
+        // Метод для ивента изменения коллекции
+        private void CollectionChange(object? sender, EventArgs e)
+            => UpdateTextLabelTree(binaryTree.ToString());
+
+        // Обновление текста снизу
+        private void UpdateTextLabelTree(string message)
+        {
+            BinaryTreeText.Text = message;
+        }
+
+        #region Controls
+
+        #region GreenPanel + SubMenu
 
         private static void SetButtonColors(IconButton button, Color backColor, Color foreColor)
         {
@@ -82,10 +92,12 @@ namespace Lab16
 
         private void ActiveMenu()
         {
-            if (subMenuPanels.TryGetValue(activeBtn, out Panel? panel) && !panel.Visible)
+            var btn = (IconMenuButton)activeBtn;
+
+            if (btn.Label != null && !btn.Label.Visible)
             {
                 activeMenu.Visible = false;
-                activeMenu = panel;
+                activeMenu = btn.Label;
                 activeMenu.Visible = true;
 
             }
@@ -106,7 +118,7 @@ namespace Lab16
         {
             var curBtn = (IconButton)senderBtn;
 
-            if (curBtn != activeBtn || leftBorderPanel.Visible == false)
+            if (curBtn != null)
             {
                 DisableActiveBtn();
 
@@ -126,6 +138,7 @@ namespace Lab16
                 DisableActiveBtn();
             }
         }
+
 
         #endregion
 
@@ -147,7 +160,49 @@ namespace Lab16
         private void CloseActiveForm() => activeForm?.Close();
         #endregion
 
-        #region Кнопки справа сверху и передвижение окна
+        #endregion
+
+        #region Click Buttons
+
+        #region SubMenu
+        private void AddSubMenuBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            ActiveMenu();
+
+            CloseActiveForm();
+        }
+
+        private void SaveSubMenuBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            ActiveMenu();
+
+            CloseActiveForm();
+        }
+
+        private void UnloadFileBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            ActiveMenu();
+
+            CloseActiveForm();
+        }
+
+        private void RequestBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            ActiveMenu();
+
+            CloseActiveForm();
+        }
+        #endregion
+
+        #region Top Right Buttons and Window Movement
         private void CloseBtn_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -197,11 +252,11 @@ namespace Lab16
         }
 
 
-        [LibraryImport("user32.dll", EntryPoint = "ReleaseCapture")]
-        private static partial void ReleaseCapture();
+        [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
 
-        [LibraryImport("user32.dll", EntryPoint = "SendMessage")]
-        private static partial void SendMessage(System.IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        [DllImport("user32.dll", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
 
         private void HeaderPanel_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
@@ -218,102 +273,148 @@ namespace Lab16
 
         #endregion
 
-        #region Нажатие кнопок меню
-        private void AddSubMenuBtn_Click(object sender, EventArgs e)
-        {
-            //ShowInfoBtn((IconButton)sender);
-
-            ActiveBtn(sender, e);
-
-            ActiveMenu();
-
-            CloseActiveForm();
-        }
-
-        private void SaveSubMenuBtn_Click(object sender, EventArgs e)
-        {
-            //ShowInfoBtn((IconButton)sender);
-
-            ActiveBtn(sender, e);
-
-            ActiveMenu();
-
-            CloseActiveForm();
-
-        }
+        #region Add/Change/Remove
 
         private void ManuallyBtn_Click(object sender, EventArgs e)
         {
-            //ShowInfoBtn((IconButton)sender);
-
             ActiveBtn(sender, e);
 
-            OpenForm(new AddManuallyForm());
+            OpenForm(new AddManuallyForm(this, ActionType.Add, "Добавление товара"));
         }
+
 
         private void RandomBtn_Click(object sender, EventArgs e)
         {
-            //ShowInfoBtn((IconButton)sender);
             ActiveBtn(sender, e);
-        }
 
+            CloseActiveForm();
 
-        private void BinBtn_Click(object sender, EventArgs e)
-        {
-            ActiveBtn(sender, e);
-        }
+            binaryTree.Clear();
+            binaryTree.Add(Requests.CreateRandomProductArray(new ProductNameComparer()));
+            UpdateTextLabelTree(binaryTree.ToString());
 
-        private void XmlBtn_Click(object sender, EventArgs e)
-        {
-            ActiveBtn(sender, e);
-        }
-
-        private void JsonBtn_Click(object sender, EventArgs e)
-        {
-            ActiveBtn(sender, e);
         }
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
             ActiveBtn(sender, e);
+
+            OpenForm(new AddManuallyForm(this, ActionType.Delete, "Удаление товара"));
+
         }
 
         private void ChangeBtn_Click(object sender, EventArgs e)
         {
             ActiveBtn(sender, e);
+
+            OpenForm(new AddManuallyForm(this, ActionType.Modify, "Изменение атрибутов товара"));
         }
 
-        private void UnloadFileBtn_Click(object sender, EventArgs e)
-        {
-            ActiveBtn(sender, e);
-        }
-
-        private void ShowBtn_Click(object sender, EventArgs e)
-        {
-            ActiveBtn(sender, e);
-        }
-
-        private void RequestBtn_Click(object sender, EventArgs e)
+        private void ClearBtn_Click(object sender, EventArgs e)
         {
             ActiveBtn(sender, e);
 
-            ActiveMenu();
+            CloseActiveForm();
+
+            binaryTree.Clear();
         }
 
+        #endregion
+
+        #region Requests
         private void RqstBtn1_Click(object sender, EventArgs e)
         {
             ActiveBtn(sender, e);
+
+            UpdateTextLabelTree(Requests.GetTextFilterByProducts(binaryTree));
+
+            CloseActiveForm();
         }
 
         private void RqstBtn2_Click(object sender, EventArgs e)
         {
             ActiveBtn(sender, e);
+
+            UpdateTextLabelTree(Requests.GetTextFilterByMilkProducts(binaryTree));
+
+            CloseActiveForm();
         }
 
         private void RqstBtn3_Click(object sender, EventArgs e)
         {
             ActiveBtn(sender, e);
+
+            UpdateTextLabelTree(Requests.GetTextFilterByToys(binaryTree));
+
+            CloseActiveForm();
         }
+
+        private void ShowBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            var res = Requests.GetTextSortTree(binaryTree);
+
+            if (BinaryTreeText.Text != binaryTree.ToString())
+                UpdateTextLabelTree(binaryTree.ToString());
+            else
+                UpdateTextLabelTree(res);
+        }
+
+
+        #endregion
+
+        #region Save/Load
+        private void BinBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            binaryTree.SaveDialog(new BinSerializator<List<Goods>>());
+
+        }
+
+        private void XmlBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            binaryTree.SaveDialog(new XMLSerializator<List<Goods>>());
+        }
+
+        private void JsonBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            binaryTree.SaveDialog(new JSONSerializator<List<Goods>>());
+        }
+
+        private void XMLoadBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            CloseActiveForm();
+
+            binaryTree.LoadDialog(new XMLSerializator<List<Goods>>());
+        }
+
+        private void JSONLoadBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            CloseActiveForm();
+
+            binaryTree.LoadDialog(new JSONSerializator<List<Goods>>());
+        }
+
+        private void BinLoadBtn_Click(object sender, EventArgs e)
+        {
+            ActiveBtn(sender, e);
+
+            CloseActiveForm();
+
+            binaryTree.LoadDialog(new BinSerializator<List<Goods>>());
+        }
+
+        #endregion
 
         #endregion
     }

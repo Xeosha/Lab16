@@ -12,6 +12,16 @@
   <ItemGroup>
     <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
     <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="lab12lib">
+      <HintPath>..\lab12lib\obj\Debug\net7.0\lab12lib.dll</HintPath>
+    </Reference>
+    <Reference Include="Lab_10lib">
+      <HintPath>..\Lab_10lib\obj\Debug\net7.0\Lab_10lib.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +37,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventBinaryTree\EventBinaryTree.csproj" />
   </ItemGroup>
 
 </Project>
