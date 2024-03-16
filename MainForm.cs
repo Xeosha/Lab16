@@ -1,19 +1,12 @@
 using FontAwesome.Sharp;
-using Guna.UI2.WinForms.Helpers;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Runtime.InteropServices;
-using System.Reflection.Metadata;
-using Lab_10lib;
 using Lab16.CustomControl;
-using EventBinaryTree;
-using Guna.UI2.WinForms;
-using Microsoft.Win32;
-using Lab16.Serialization;
-using System;
-using System.Runtime.Serialization.Formatters.Binary;
-using BinarySearchTree;
 using Lab16.Methods;
+using Lab16.Models;
+using Lab_10lib;
+using Lab16.Serialization;
+using EventBinaryTree;
+
 
 namespace Lab16
 {
@@ -23,7 +16,6 @@ namespace Lab16
 
         bool dragging = false;
         Point dragCursorPoint, dragFormPoint;
-
 
         private readonly Color activeBackgroundColor = Color.FromArgb(52, 52, 52);
         private readonly Color activeForegroundColor = Color.FromArgb(134, 200, 103);
@@ -36,7 +28,8 @@ namespace Lab16
         private readonly Panel leftBorderPanel;
         private Panel activeMenu;
 
-        public BinaryTreeEvent<Goods> binaryTree;
+
+        private readonly MainModel mainModel;
 
 
         #endregion
@@ -47,10 +40,10 @@ namespace Lab16
         {
             InitializeComponent();
 
-            binaryTree = new();
-            binaryTree.CollectionChange += CollectionChange;
+            mainModel = new();
+            mainModel.binaryTree.CollectionChange += CollectionChange;
 
-            binaryTree.Clear();
+            mainModel.Clear();
 
             activeBtn = AddSubMenuBtn;
             leftBorderPanel = greenLabel;
@@ -71,7 +64,7 @@ namespace Lab16
 
         // Метод для ивента изменения коллекции
         private void CollectionChange(object? sender, EventArgs e)
-            => UpdateTextLabelTree(binaryTree.ToString());
+            => UpdateTextLabelTree(mainModel.ToString());
 
         // Обновление текста снизу
         private void UpdateTextLabelTree(string message)
@@ -279,7 +272,7 @@ namespace Lab16
         {
             ActiveBtn(sender, e);
 
-            OpenForm(new AddManuallyForm(this, ActionType.Add, "Добавление товара"));
+            OpenForm(new AddManuallyForm(mainModel, ActionType.Add, "Добавление товара"));
         }
 
 
@@ -289,9 +282,10 @@ namespace Lab16
 
             CloseActiveForm();
 
-            binaryTree.Clear();
-            binaryTree.Add(Requests.CreateRandomProductArray(new ProductNameComparer()));
-            UpdateTextLabelTree(binaryTree.ToString());
+            mainModel.Clear();
+            mainModel.CreateRandomTree();
+
+            UpdateTextLabelTree(mainModel.ToString());
 
         }
 
@@ -299,7 +293,7 @@ namespace Lab16
         {
             ActiveBtn(sender, e);
 
-            OpenForm(new AddManuallyForm(this, ActionType.Delete, "Удаление товара"));
+            OpenForm(new AddManuallyForm(mainModel, ActionType.Delete, "Удаление товара"));
 
         }
 
@@ -307,7 +301,7 @@ namespace Lab16
         {
             ActiveBtn(sender, e);
 
-            OpenForm(new AddManuallyForm(this, ActionType.Modify, "Изменение атрибутов товара"));
+            OpenForm(new AddManuallyForm(mainModel, ActionType.Modify, "Изменение атрибутов товара"));
         }
 
         private void ClearBtn_Click(object sender, EventArgs e)
@@ -316,7 +310,7 @@ namespace Lab16
 
             CloseActiveForm();
 
-            binaryTree.Clear();
+            mainModel.Clear();
         }
 
         #endregion
@@ -326,7 +320,7 @@ namespace Lab16
         {
             ActiveBtn(sender, e);
 
-            UpdateTextLabelTree(Requests.GetTextFilterByProducts(binaryTree));
+            UpdateTextLabelTree(mainModel.GetTextFilterByProducts());
 
             CloseActiveForm();
         }
@@ -335,7 +329,7 @@ namespace Lab16
         {
             ActiveBtn(sender, e);
 
-            UpdateTextLabelTree(Requests.GetTextFilterByMilkProducts(binaryTree));
+            UpdateTextLabelTree(mainModel.GetTextFilterByMilkProducts());
 
             CloseActiveForm();
         }
@@ -344,7 +338,7 @@ namespace Lab16
         {
             ActiveBtn(sender, e);
 
-            UpdateTextLabelTree(Requests.GetTextFilterByToys(binaryTree));
+            UpdateTextLabelTree(mainModel.GetTextFilterByToys());
 
             CloseActiveForm();
         }
@@ -353,10 +347,10 @@ namespace Lab16
         {
             ActiveBtn(sender, e);
 
-            var res = Requests.GetTextSortTree(binaryTree);
+            var res = mainModel.GetTextSortTree();
 
-            if (BinaryTreeText.Text != binaryTree.ToString())
-                UpdateTextLabelTree(binaryTree.ToString());
+            if (BinaryTreeText.Text != mainModel.ToString())
+                UpdateTextLabelTree(mainModel.ToString());
             else
                 UpdateTextLabelTree(res);
         }
@@ -365,26 +359,62 @@ namespace Lab16
         #endregion
 
         #region Save/Load
+
+        private void SaveShowMessageDialog(ISerializator<BinaryTreeEvent<Goods>> serializator)
+        {
+            try
+            {
+                DialogModel<BinaryTreeEvent<Goods>> dialog = new(new FileDialogService<BinaryTreeEvent<Goods>>(), mainModel.binaryTree);
+                if (dialog.SaveDialog(serializator))
+                {
+                    MessageBox.Show("Успешное сохранение файла " + serializator.FileType);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("File exception: " + ex.Message);
+            }
+        }
+
+        public void LoadShowMessageDialog(ISerializator<BinaryTreeEvent<Goods>> serializator)
+        {
+            try
+            {
+                DialogModel<BinaryTreeEvent<Goods>> dialog = new(new FileDialogService<BinaryTreeEvent<Goods>>(), mainModel.binaryTree);
+                if (dialog.LoadLDialog(serializator))
+                {
+                    MessageBox.Show("Файл успешно загружен " + serializator.FileType);
+                    mainModel.binaryTree = new(dialog.obj);
+                    mainModel.binaryTree.CollectionChange += CollectionChange;
+                }         
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("File exception: " + ex.Message);
+            }
+        }
+
+
         private void BinBtn_Click(object sender, EventArgs e)
         {
             ActiveBtn(sender, e);
 
-            binaryTree.SaveDialog(new BinSerializator<List<Goods>>());
-
+            SaveShowMessageDialog(new BinSerializator<BinaryTreeEvent<Goods>>());
         }
 
         private void XmlBtn_Click(object sender, EventArgs e)
         {
             ActiveBtn(sender, e);
 
-            binaryTree.SaveDialog(new XMLSerializator<List<Goods>>());
+            SaveShowMessageDialog(new XMLSerializator<BinaryTreeEvent<Goods>>());
         }
 
         private void JsonBtn_Click(object sender, EventArgs e)
         {
             ActiveBtn(sender, e);
 
-            binaryTree.SaveDialog(new JSONSerializator<List<Goods>>());
+            SaveShowMessageDialog(new JSONSerializator<BinaryTreeEvent<Goods>>());
+
         }
 
         private void XMLoadBtn_Click(object sender, EventArgs e)
@@ -393,7 +423,11 @@ namespace Lab16
 
             CloseActiveForm();
 
-            binaryTree.LoadDialog(new XMLSerializator<List<Goods>>());
+            LoadShowMessageDialog(new XMLSerializator<BinaryTreeEvent<Goods>>());
+
+            UpdateTextLabelTree(mainModel.ToString());
+
+
         }
 
         private void JSONLoadBtn_Click(object sender, EventArgs e)
@@ -402,7 +436,9 @@ namespace Lab16
 
             CloseActiveForm();
 
-            binaryTree.LoadDialog(new JSONSerializator<List<Goods>>());
+            LoadShowMessageDialog(new JSONSerializator<BinaryTreeEvent<Goods>>());
+
+            UpdateTextLabelTree(mainModel.ToString());
         }
 
         private void BinLoadBtn_Click(object sender, EventArgs e)
@@ -411,7 +447,9 @@ namespace Lab16
 
             CloseActiveForm();
 
-            binaryTree.LoadDialog(new BinSerializator<List<Goods>>());
+            LoadShowMessageDialog(new BinSerializator<BinaryTreeEvent<Goods>>());
+
+            UpdateTextLabelTree(mainModel.ToString());
         }
 
         #endregion

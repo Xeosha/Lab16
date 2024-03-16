@@ -1,29 +1,19 @@
-﻿using FontAwesome.Sharp;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using EventBinaryTree;
-using Lab_10lib;
+﻿
+using Lab16.Models;
+using Lab16.Methods;
 
 namespace Lab16
 {
     public partial class AddManuallyForm : Form
     {
         readonly ActionType actionType;
-        readonly MainForm mainForm;
+        readonly MainModel model;
 
-        public AddManuallyForm(MainForm mainForm, ActionType actionType, string nameGroupBox)
+        public AddManuallyForm(MainModel model, ActionType actionType, string nameGroupBox)
         {
             InitializeComponent();
 
-            this.mainForm = mainForm;
+            this.model = model;
             this.actionType = actionType;
 
             AddGroupBox.Text = nameGroupBox;
@@ -35,63 +25,75 @@ namespace Lab16
             }
         }
 
+        private bool ValidateFields(out string name, out double price, out double weight)
+        {
+            name = NameTextBox.Text.Trim();
+            price = 0;
+            weight = 0;
+
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("Введите имя товара.");
+                return false;
+            }
+
+            if (actionType != ActionType.Delete)
+            {
+                if (!double.TryParse(PriceTextBox.Text, out price) || !double.TryParse(WeightTextBox.Text, out weight))
+                {
+                    MessageBox.Show("Введите корректные значения для цены и веса.");
+                    return false;
+                }
+
+                if (price < 0 || weight < 0)
+                {
+                    MessageBox.Show("Значения цены и веса должны быть положительными числами.");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void infoBtn_Click(object sender, EventArgs e)
         {
-            if (NameTextBox.Text == "" || PriceTextBox.Text == "" || WeightTextBox.Text == "")
-            {
-                MessageBox.Show("Введите все поля.");
+            if (!ValidateFields(out var name, out var price, out var weight))
                 return;
-            }
-
-            var flag = Double.TryParse(PriceTextBox.Text, out double price) &
-                       Double.TryParse(WeightTextBox.Text, out double weight);
-
-            if (!flag || price < 0 || weight < 0)
-            {
-                MessageBox.Show("Значения веса и цены должны быть double и > 0 ");
-                return;
-            }
-
-            var product = new Goods(NameTextBox.Text, price, weight);
-
-            var binaryTree = mainForm.binaryTree;
 
             string message;
-            switch (actionType)
-            {
-                case ActionType.Add:
-                    try
-                    {
-                        binaryTree.Add(product);
-                        message = $"Товар {product.Name} успешно добавлен";
-                    }
-                    catch (Exception)
-                    {
-                        message = $"Товар {product.Name} уже есть в дереве";
-                    }
-                    break;
-                case ActionType.Modify:
-                    try
-                    {
-                        binaryTree[product.Name] = new Goods("", price, weight);
-                        message = $"Атрибуты товара {product.Name} успешно изменены";
-                    }
-                    catch (Exception)
-                    {
-                        message = $"Товар не удалось найти";
-                    }
 
-                    break;
-                case ActionType.Delete:
-                    if (binaryTree.Remove(product))
-                        message = $"Товар {product.Name} успешно удален";
-                    else
-                        message = $"Товар {product.Name} не удалось найти";
-                    break;
-                default:
-                    message = "Неизвестная команда";
-                    break;
+            try
+            {
+                switch (actionType)
+                {
+                    case ActionType.Add:
+                        model.Add(name, price, weight);
+                        message = $"Товар {name} успешно добавлен";
+                        break;
+                    case ActionType.Modify:
+                        model.Modify(name, price, weight);
+                        message = $"Товар {name} успешно изменен";
+                        break;
+                    case ActionType.Delete:
+                        if (model.Delete(name))
+                            message = $"Товар {name} успешно удален";
+                        else
+                            message = $"Товар {name} не удалось удалить";
+                        break;
+                    default:
+                        message = "Неизвестная команда";
+                        break;
+                }
             }
+            catch (ArgumentException ex)
+            {
+                message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                message = $"Произошла ошибка: {ex.Message}";
+            }
+
             MessageBox.Show(message);
         }
     }

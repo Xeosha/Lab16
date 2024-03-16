@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab16", "Lab16.csproj", "{6277D03A-ABF9-4938-B342-C4863EE4A302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBinaryTree", "..\EventBinaryTree\EventBinaryTree.csproj", "{C5B21E0F-B28C-4ABC-A02A-6C49AC32BDAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBinaryTree", "..\EventBinaryTree\EventBinaryTree.csproj", "{C5B21E0F-B28C-4ABC-A02A-6C49AC32BDAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
