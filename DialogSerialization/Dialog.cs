@@ -1,13 +1,13 @@
-﻿using Lab16.Serialization;
+﻿
 
-namespace Lab16.Models
+namespace Lab16.Serialization
 {
-    public class DialogModel<T>
+    public class Dialog<T>
     {
         public IFileDialogService<T> dialog;
         public T obj;
 
-        public DialogModel(IFileDialogService<T> dialog, T obj)
+        public Dialog(IFileDialogService<T> dialog, T obj)
         {
             this.dialog = dialog;
             this.obj = obj;

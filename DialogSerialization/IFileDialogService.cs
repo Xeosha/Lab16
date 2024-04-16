@@ -1,5 +1,4 @@
 ﻿
-
 namespace Lab16.Serialization
 {
     public interface IFileDialogService<T>

@@ -1,8 +1,6 @@
 using FontAwesome.Sharp;
 using System.Runtime.InteropServices;
 using Lab16.CustomControl;
-using Lab16.Methods;
-using Lab16.Models;
 using Lab_10lib;
 using Lab16.Serialization;
 using EventBinaryTree;
@@ -28,7 +26,7 @@ namespace Lab16
         private readonly Panel leftBorderPanel;
         private Panel activeMenu;
 
-
+        // можно вынести дерево, а методы сделать статическими с передачей дерева.
         private readonly MainModel mainModel;
 
 
@@ -275,6 +273,27 @@ namespace Lab16
             OpenForm(new AddManuallyForm(mainModel, ActionType.Add, "Добавление товара"));
         }
 
+        private static int? EnterPositiveIntegerMenu(string InputMessage)
+        {
+            var flag = true;
+            int count = 0;
+
+            while (flag)
+            {
+                var result = Microsoft.VisualBasic.Interaction.InputBox(InputMessage);
+
+                if (string.IsNullOrWhiteSpace(result))
+                    return null;
+
+                flag = !(Int32.TryParse(result, out count) && count > 0);
+
+                if (flag)
+                {
+                    MessageBox.Show("ВВЕДИТЕ ЦЕЛОЕ ЧИСЛО!");
+                }
+            }
+            return count;
+        }
 
         private void RandomBtn_Click(object sender, EventArgs e)
         {
@@ -282,8 +301,15 @@ namespace Lab16
 
             CloseActiveForm();
 
-            mainModel.Clear();
-            mainModel.CreateRandomTree();
+
+            var res = EnterPositiveIntegerMenu("Введите количество товаров: ");
+
+            if (res != null)
+            {
+                mainModel.Clear();
+                mainModel.CreateRandomTree((int)res);
+            }
+       
 
             UpdateTextLabelTree(mainModel.ToString());
 
@@ -364,7 +390,7 @@ namespace Lab16
         {
             try
             {
-                DialogModel<BinaryTreeEvent<Goods>> dialog = new(new FileDialogService<BinaryTreeEvent<Goods>>(), mainModel.binaryTree);
+                Dialog<BinaryTreeEvent<Goods>> dialog = new(new FileDialogService<BinaryTreeEvent<Goods>>(), mainModel.binaryTree);
                 if (dialog.SaveDialog(serializator))
                 {
                     MessageBox.Show("Успешное сохранение файла " + serializator.FileType);
@@ -380,7 +406,7 @@ namespace Lab16
         {
             try
             {
-                DialogModel<BinaryTreeEvent<Goods>> dialog = new(new FileDialogService<BinaryTreeEvent<Goods>>(), mainModel.binaryTree);
+                Dialog<BinaryTreeEvent<Goods>> dialog = new(new FileDialogService<BinaryTreeEvent<Goods>>(), mainModel.binaryTree);
                 if (dialog.LoadLDialog(serializator))
                 {
                     MessageBox.Show("Файл успешно загружен " + serializator.FileType);

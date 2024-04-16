@@ -2,7 +2,7 @@
 using Lab_10lib;
 using Lab16.Methods;
 
-namespace Lab16.Models
+namespace Lab16
 {
     public class MainModel
     {
@@ -10,19 +10,19 @@ namespace Lab16.Models
 
         public MainModel()
         {
-            this.binaryTree = new BinaryTreeEvent<Goods>();
+            binaryTree = new BinaryTreeEvent<Goods>();
         }
 
-        public void Clear() 
+        public void Clear()
             => binaryTree.Clear();
 
         public void Add(IEnumerable<Goods> collection)
         {
             binaryTree.Add(collection);
         }
-           
-        public void CreateRandomTree()
-            => binaryTree.Add(CreateArrayProducts.CreateRandomProductArray(new EqualityComparerByName()));
+
+        public void CreateRandomTree(int size)
+            => binaryTree.Add(CreateArrayProducts.GenerateRandomProductArray(size, new EqualityComparerByName()));
 
         public override string ToString()
             => binaryTree.ToString();
@@ -43,10 +43,10 @@ namespace Lab16.Models
         {
             var product = new Goods(name, price, weight);
 
-            binaryTree.Add(product);       
+            binaryTree.Add(product);
         }
 
-        public void Modify(string name, double price, double weight) 
+        public void Modify(string name, double price, double weight)
         {
             var product = new Goods(name, price, weight);
 

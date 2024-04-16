@@ -1,8 +1,4 @@
-﻿
-using Lab16.Models;
-using Lab16.Methods;
-
-namespace Lab16
+﻿namespace Lab16
 {
     public partial class AddManuallyForm : Form
     {

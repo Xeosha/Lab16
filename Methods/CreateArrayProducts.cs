@@ -1,4 +1,5 @@
 ﻿using Lab_10lib;
+using InputKeyboard;
 
 namespace Lab16.Methods
 {
@@ -6,30 +7,6 @@ namespace Lab16.Methods
     {
         static readonly Random rnd = new();
 
-        static int EnterPositiveIntegerMenu(string InputMessage)
-        {
-            var flag = true;
-            int count = 0;
-
-            while (flag)
-            {
-                var result = Microsoft.VisualBasic.Interaction.InputBox(InputMessage);
-
-                flag = !(Int32.TryParse(result, out count) && count > 0);
-
-                if (flag)
-                {
-                    MessageBox.Show("ВВЕДИТЕ ЦЕЛОЕ ЧИСЛО!");
-                }
-            }
-            return count;
-        }
-
-        public static Goods[] CreateRandomProductArray(IEqualityComparer<Goods> comparer)
-        {
-            int size = EnterPositiveIntegerMenu("Введите количество товаров: ");
-            return GenerateRandomProductArray(size, comparer);
-        }
 
         public static Goods[] GenerateRandomProductArray(int size, IEqualityComparer<Goods> comparer)
         {

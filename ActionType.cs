@@ -1,6 +1,4 @@
-﻿
-
-namespace Lab16.Methods
+﻿namespace Lab16
 {
     public enum ActionType
     {

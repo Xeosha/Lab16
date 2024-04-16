@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab16", "Lab16.csproj", "{6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBinaryTree", "..\EventBinaryTree\EventBinaryTree.csproj", "{C5B21E0F-B28C-4ABC-A02A-6C49AC32BDAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab16libs", "..\Lab16libs\Lab16libs.csproj", "{F3484B38-429E-40B9-86ED-E65D1B330B41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializationTest", "..\SerializationTest\SerializationTest.csproj", "{F40E27E1-81B2-4877-8194-C7C51FD54776}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{C5B21E0F-B28C-4ABC-A02A-6C49AC32BDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5B21E0F-B28C-4ABC-A02A-6C49AC32BDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5B21E0F-B28C-4ABC-A02A-6C49AC32BDAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3484B38-429E-40B9-86ED-E65D1B330B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3484B38-429E-40B9-86ED-E65D1B330B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3484B38-429E-40B9-86ED-E65D1B330B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3484B38-429E-40B9-86ED-E65D1B330B41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F40E27E1-81B2-4877-8194-C7C51FD54776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F40E27E1-81B2-4877-8194-C7C51FD54776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F40E27E1-81B2-4877-8194-C7C51FD54776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F40E27E1-81B2-4877-8194-C7C51FD54776}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

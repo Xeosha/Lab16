@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="InputKeyboard">
+      <HintPath>..\InputKeyboard\bin\Debug\InputKeyboard.dll</HintPath>
+    </Reference>
     <Reference Include="lab12lib">
       <HintPath>..\lab12lib\obj\Debug\net7.0\lab12lib.dll</HintPath>
     </Reference>
@@ -41,6 +44,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventBinaryTree\EventBinaryTree.csproj" />
+    <ProjectReference Include="..\Lab16libs\Lab16libs.csproj" />
   </ItemGroup>
 
 </Project>
