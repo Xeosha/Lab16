@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "2WIjb7se3XE=",
+  "success": true,
+  "projectFilePath": "D:\\C#\\Lab16libs\\Lab16libs.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\denda\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\denda\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.20\\microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\denda\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.20\\microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\denda\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.20\\microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512"
+  ],
+  "logs": []
+}

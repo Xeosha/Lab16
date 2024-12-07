@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "12lab_Shalnev/1.0.0": {
+        "dependencies": {
+          "lab10lib_Shalnev": "1.0.0.0"
+        },
+        "runtime": {
+          "12lab_Shalnev.dll": {}
+        }
+      },
+      "lab10lib_Shalnev/1.0.0.0": {
+        "runtime": {
+          "lab10lib_Shalnev.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "12lab_Shalnev/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "lab10lib_Shalnev/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
